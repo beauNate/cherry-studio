@@ -344,8 +344,8 @@ class BackupManager {
       return backupedFilePath
     } catch (error) {
       logger.error('[BackupManager] Backup failed:', error as Error)
-      // 确保清理临时目录
-      await fs.remove(this.tempDir).catch(() => {})
+      // 确保清理临时目录 - 忽略清理失败的错误
+      await fs.remove(this.tempDir).catch(() => {/* Ignore cleanup errors */})
       throw error
     }
   }
@@ -417,7 +417,8 @@ class BackupManager {
       return data
     } catch (error) {
       logger.error('Restore failed:', error as Error)
-      await fs.remove(this.tempDir).catch(() => {})
+      // Ignore cleanup errors - tempDir removal is best-effort
+      await fs.remove(this.tempDir).catch(() => {/* Ignore cleanup errors */})
       throw error
     }
   }
@@ -444,8 +445,8 @@ class BackupManager {
       await fs.remove(backupedFilePath)
       return result
     } catch (error) {
-      // 上传失败时也删除本地临时文件
-      await fs.remove(backupedFilePath).catch(() => {})
+      // 上传失败时也删除本地临时文件 - 忽略删除失败的错误
+      await fs.remove(backupedFilePath).catch(() => {/* Ignore cleanup errors */})
       throw error
     }
   }

@@ -1,5 +1,5 @@
 {
-  "tsDecorders": "legacy",
+  "tsDecorators": "legacy",
   "files": [],
   "references": [
     {

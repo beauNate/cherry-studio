@@ -136,7 +136,8 @@ export const createMessage = async (req: Request, res: Response): Promise<void> 
         logger.warn('Streaming aborted', { agentId, sessionId, reason: abortReason })
       }
 
-      reader.cancel(abortReason ?? 'stream aborted').catch(() => {})
+      // Cancel the reader stream - ignore errors as stream may already be closed
+      reader.cancel(abortReason ?? 'stream aborted').catch(() => {/* Ignore cancel errors */})
 
       if (!res.headersSent) {
         res.setHeader('Content-Type', 'text/event-stream')
