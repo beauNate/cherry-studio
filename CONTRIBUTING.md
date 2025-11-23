@@ -30,6 +30,18 @@ Please make sure you have read the [Code of Conduct](CODE_OF_CONDUCT.md) and the
 
 To help you get familiar with the codebase, we recommend tackling issues tagged with one or more of the following labels: [good-first-issue](https://github.com/CherryHQ/cherry-studio/labels/good%20first%20issue), [help-wanted](https://github.com/CherryHQ/cherry-studio/labels/help%20wanted), or [kind/bug](https://github.com/CherryHQ/cherry-studio/labels/kind%2Fbug). Any help is welcome.
 
+### Development Commands
+
+Before submitting a pull request, ensure your code passes all checks:
+
+- **Install Dependencies**: `yarn install`
+- **Build Check**: `yarn build:check` - Runs linting, tests, and type checking (required before commits)
+- **Format**: `yarn format` - Auto-format code using Biome
+- **Lint**: `yarn lint` - Fix linting issues and run TypeScript type checking
+- **Test**: `yarn test` - Run all tests (Vitest) across main and renderer processes
+
+For more development commands and architecture details, see [CLAUDE.md](CLAUDE.md).
+
 ### Testing
 
 Features without tests are considered non-existent. To ensure code is truly effective, relevant processes should be covered by unit tests and functional tests. Therefore, when considering contributions, please also consider testability. All tests can be run locally without dependency on CI. Please refer to the "Testing" section in the [Developer Guide](docs/dev.md).

@@ -6,6 +6,7 @@ import type { Topic } from '@renderer/types'
 import { type Message, MessageBlockType } from '@renderer/types/newMessage'
 import { List, Spin, Typography } from 'antd'
 import { useLiveQuery } from 'dexie-react-hooks'
+import DOMPurify from 'dompurify'
 import type { FC } from 'react'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -112,7 +113,12 @@ const SearchResults: FC<Props> = ({ keywords, onMessageClick, onTopicClick, ...p
         //
       }
     })
-    return <span dangerouslySetInnerHTML={{ __html: highlightedText }} />
+    // Sanitize the HTML to prevent XSS attacks
+    const sanitizedHtml = DOMPurify.sanitize(highlightedText, {
+      ALLOWED_TAGS: ['mark'],
+      ALLOWED_ATTR: []
+    })
+    return <span dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
   }
 
   useEffect(() => {
